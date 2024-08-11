@@ -1,0 +1,13 @@
+#!/bin/zsh -f
+
+readonly paths=("$@")
+local output="{\"items\":["
+
+for path in "${paths[@]}"; do
+	local hex="#$path:t:r" # last path component w/o extension
+	output+="{\"title\":\"$hex\",\"arg\":\"$hex\",\"icon\":{\"path\":\"$path\"}},"
+done
+
+output=${output%?} # drop last comma
+output+="]}"
+echo -n $output
